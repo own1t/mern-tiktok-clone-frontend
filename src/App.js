@@ -1,7 +1,8 @@
 // React
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// Views
+// Axios
+import axios from "./axios";
 
 // Components
 import Video from "./components/Video";
@@ -10,28 +11,33 @@ import Video from "./components/Video";
 import "./App.css";
 
 function App() {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await axios.get("/api/posts");
+      setVideos(res.data);
+    }
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className="app">
       <div className="app__videos">
-        <Video
-          url=""
-          channel="ownit"
-          description="This is description"
-          song="Lean On"
-          likes={100}
-          messages={300}
-          shares={200}
-        />
-
-        <Video
-          url=""
-          channel="ownit"
-          description="This is description"
-          song="Lean On"
-          likes={100}
-          messages={300}
-          shares={200}
-        />
+        {videos.map(
+          ({ url, channel, description, song, likes, messages, shares }) => (
+            <Video
+              url={url}
+              channel={channel}
+              description={description}
+              song={song}
+              likes={likes}
+              messages={messages}
+              shares={shares}
+            />
+          )
+        )}
       </div>
     </div>
   );
