@@ -1,6 +1,10 @@
 // React
 import React, { useRef, useState } from "react";
 
+// Components
+import VideoFooter from "./VideoFooter";
+import VideoSidebar from "./VideoSidebar";
+
 // CSS
 import "./Video.css";
 
@@ -30,6 +34,8 @@ function Video() {
           loop
           onClick={handleVideoPlay}
         ></video>
+
+        <VideoFooter />
       </div>
     </>
   );
